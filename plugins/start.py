@@ -23,6 +23,10 @@ async def auto_del_notification(client, msg, delay_time):
         await asyncio.sleep(delay_time)
         await msg.delete()
 
+import asyncio
+
+user_timeouts = {}
+
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     user_id = message.from_user.id
@@ -39,6 +43,12 @@ async def start_command(client: Client, message: Message):
             basic = text.split(" ", 1)[1]
             if basic.startswith("yu3elk"):
                 base64_string = basic[6:-1]
+
+                # If 30 seconds haven't passed since the last short_url call
+                if user_id in user_timeouts and (asyncio.get_event_loop().time() - user_timeouts[user_id]) < 130:
+                    await message.reply("<b><blockquote>🚨 ʙʏᴘᴀss ᴅᴇᴛᴇᴄᴛᴇᴅ 🚨</blockquote>\n\n<blockquote>ᴀʀᴇ ᴍᴇʀᴇ ʙᴇᴛᴇ ᴋɪᴛɴɪ ʙᴀᴀʀ ʙᴏʟᴀ ʜ ʙᴀᴀᴘ ꜱᴇ ᴄʜᴀʟᴀᴋɪ ɴʜɪ ? 🥸🖕\n\nᴄʜʟ ʙᴇᴛᴇ ᴀʙ ᴡᴀᴘᴀꜱ ꜱᴇ ꜱᴏʟᴠᴇ ᴋʀɴᴇ ʟɢᴊᴀ ᴍᴇʀᴀ ᴘʏᴀʀᴀ ʙᴇᴛᴀ ᴏʀ ɪꜱꜱ ʙᴀᴀʀ ᴄʜᴀʟᴀᴋɪ ɴʜɪ !! 🌚💭</blockquote></b>")
+                    return
+
             else:
                 base64_string = text.split(" ", 1)[1]
 
@@ -49,6 +59,7 @@ async def start_command(client: Client, message: Message):
         is_user_premium = await is_premium(user_id)
         if not is_user_premium and user_id != OWNER_ID and not basic.startswith("yu3elk"):
             await short_url(client, message, base64_string)
+            user_timeouts[user_id] = asyncio.get_event_loop().time()  # Start the 30s countdown
             return
 
         string = await decode(base64_string)
@@ -76,6 +87,7 @@ async def start_command(client: Client, message: Message):
             except Exception as e:
                 print(f"Error processing argument: {e}")
                 return
+
         temp_msg = await message.reply("Please wait...")
         try:
             messages = await get_messages(client, ids)
@@ -137,12 +149,10 @@ async def start_command(client: Client, message: Message):
                     id=message.from_user.id
                 ),
                 reply_markup=reply_markup,
-
             )
         except Exception as e:
             print(f"Error replying to message: {e}")
         return
-
 
 #=====================================================================================##
 
