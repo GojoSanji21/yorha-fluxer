@@ -1,11 +1,12 @@
 import asyncio
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from config import ADMINS
 from database.database import add_fsub, del_fsub, get_fsubs, is_fsub
+from bot import Bot
 
-@Client.on_message(filters.command('add_fsub') & filters.user(ADMINS))
-async def add_fsub_cmd(client: Client, message: Message):
+@Bot.on_message(filters.private & filters.command('add_fsub') & filters.user(ADMINS))
+async def add_fsub_cmd(client: Bot, message: Message):
     if len(message.command) < 2:
         return await message.reply("Usage: `/add_fsub [chat_id]`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
 
@@ -24,8 +25,8 @@ async def add_fsub_cmd(client: Client, message: Message):
     except Exception as e:
         await message.reply(f"Error: {str(e)}", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
 
-@Client.on_message(filters.command('del_fsub') & filters.user(ADMINS))
-async def del_fsub_cmd(client: Client, message: Message):
+@Bot.on_message(filters.private & filters.command('del_fsub') & filters.user(ADMINS))
+async def del_fsub_cmd(client: Bot, message: Message):
     if len(message.command) < 2:
         return await message.reply("Usage: `/del_fsub [chat_id]`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
 
@@ -51,8 +52,8 @@ async def del_fsub_cmd(client: Client, message: Message):
     except Exception as e:
         await message.reply(f"Error: {str(e)}", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
 
-@Client.on_message(filters.command('list_fsub') & filters.user(ADMINS))
-async def list_fsub_cmd(client: Client, message: Message):
+@Bot.on_message(filters.private & filters.command('list_fsub') & filters.user(ADMINS))
+async def list_fsub_cmd(client: Bot, message: Message):
     try:
         fsubs = await get_fsubs()
         if not fsubs:
