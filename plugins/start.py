@@ -164,11 +164,14 @@ REPLY_ERROR = "<code>Use this command as a reply to any telegram message without
 #=====================================================================================##
 async def short_url(client: Client, message: Message, base64_string):
     try:
-        prem_link = f"https://t.me/{client.username}?start=yu3elk{base64_string}7"
-        short_link = get_short(prem_link)
-
+        bot_username = client.username
+        payload = f"yu3elk{base64_string}7"
         token = secrets.token_hex(6)
-        b64_url = base64.urlsafe_b64encode(short_link.encode()).decode()
+        finalize_url = f"{VERCEL_PROXY_URL}/finalize?token={token}&bot={bot_username}&payload={payload}"
+
+        short_url = get_short(finalize_url)
+
+        b64_url = base64.urlsafe_b64encode(short_url.encode()).decode()
         final_url = f"{VERCEL_PROXY_URL}/access/{token}?url={b64_url}"
 
         buttons = [

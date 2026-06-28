@@ -17,7 +17,7 @@ async def add_fsub_cmd(client: Client, message: Message):
         title = chat.title
         await add_fsub(chat_id, title)
 
-        text = f"<b>ᴄʜᴀɴɴᴇʟ ᴀᴅᴅᴇᴅ</b>\nChannel Name: <b>\"{title}\"</b>\nID: <code>{chat_id}</code>"
+        text = f"<b>ᴄʜᴀɴɴᴇʟ ᴀᴅᴅᴇᴅ</b>\n<b>\"{title}\"</b>\nID: <code>{chat_id}</code>"
         await message.reply(text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
     except ValueError:
         await message.reply("Invalid Chat ID format.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
@@ -44,7 +44,7 @@ async def del_fsub_cmd(client: Client, message: Message):
 
         await del_fsub(chat_id)
 
-        text = f"<b>ᴄʜᴀɴɴᴇʟ ʀᴇᴍᴏᴠᴇᴅ</b>\nChannel Name: <b>\"{title}\"</b>\nID: <code>{chat_id}</code>"
+        text = f"<b>ᴄʜᴀɴɴᴇʟ ʀᴇᴍᴏᴠᴇᴅ</b>\n<b>\"{title}\"</b>\nID: <code>{chat_id}</code>"
         await message.reply(text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
     except ValueError:
         await message.reply("Invalid Chat ID format.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("[ • ᴄʟᴏsᴇ • ]", callback_data="close")]]))
