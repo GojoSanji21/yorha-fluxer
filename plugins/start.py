@@ -165,7 +165,7 @@ REPLY_ERROR = "<code>Use this command as a reply to any telegram message without
 async def short_url(client: Client, message: Message, base64_string):
     try:
         bot_username = client.me.username if client.me else client.username
-        payload = base64_string
+        payload = f"yu3elk{base64_string}O"
         token = secrets.token_hex(6)
         finalize_url = f"{VERCEL_PROXY_URL}/finalize?token={token}&bot={bot_username}&payload={payload}"
 
