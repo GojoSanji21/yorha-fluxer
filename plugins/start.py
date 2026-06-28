@@ -6,7 +6,9 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, FORCE_MSG, OWNER_ID, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT, START_PIC, FORCE_PIC, SHORT_MSG, AUTO_DEL, DEL_TIMER, DEL_MSG
+import secrets
+import base64
+from config import ADMINS, FORCE_MSG, OWNER_ID, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT, START_PIC, FORCE_PIC, SHORT_MSG, AUTO_DEL, DEL_TIMER, DEL_MSG, VERCEL_PROXY_URL
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user, is_premium
 from plugins.shorturl import get_short
@@ -165,9 +167,13 @@ async def short_url(client: Client, message: Message, base64_string):
         prem_link = f"https://t.me/{client.username}?start=yu3elk{base64_string}7"
         short_link = get_short(prem_link)
 
+        token = secrets.token_hex(6)
+        b64_url = base64.urlsafe_b64encode(short_link.encode()).decode()
+        final_url = f"{VERCEL_PROXY_URL}/access/{token}?url={b64_url}"
+
         buttons = [
             [
-                InlineKeyboardButton(text="Download", url=short_link),
+                InlineKeyboardButton(text="Download", url=final_url),
                 InlineKeyboardButton(text="Tutorial", url="https://t.me/+KPJ5glEICD40Njc1")
             ],
             [
