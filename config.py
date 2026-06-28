@@ -29,8 +29,8 @@ DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://sagatobots00001:sagatobot
 DB_NAME = os.environ.get("DATABASE_NAME", "Yorha_Share_Bot")
 
 #force sub channel id, if you want enable force sub
-FORCESUB_CHANNEL = int(os.environ.get("FORCESUB_CHANNEL", ""))
-FORCESUB_CHANNEL2 = int(os.environ.get("FORCESUB_CHANNEL2", ""))
+FORCESUB_CHANNEL = int(os.environ.get("FORCESUB_CHANNEL", "0"))
+FORCESUB_CHANNEL2 = int(os.environ.get("FORCESUB_CHANNEL2", "0"))
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
