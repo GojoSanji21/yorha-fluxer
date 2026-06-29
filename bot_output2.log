@@ -1,0 +1,26 @@
+Welcome to Pyrogram (version 2.3.38)
+Pyrogram is free software and comes with ABSOLUTELY NO WARRANTY. Licensed
+under the terms of the GNU Lesser General Public License v3.0 (LGPL-3.0).
+
+Enter phone number or bot token: Traceback (most recent call last):
+  File "/app/main.py", line 7, in <module>
+    Bot().run()
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/pyrogram/methods/utilities/run.py", line 81, in run
+    run(self.start())
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/bot.py", line 29, in start
+    await super().start()
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/pyrogram/methods/utilities/start.py", line 63, in start
+    await self.authorize()
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/pyrogram/client.py", line 412, in authorize
+    value = await ainput("Enter phone number or bot token: ")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/pyrogram/utils.py", line 51, in ainput
+    return await asyncio.get_event_loop().run_in_executor(executor, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+EOFError: EOF when reading a line
